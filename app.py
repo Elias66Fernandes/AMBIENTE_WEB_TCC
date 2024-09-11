@@ -22,8 +22,8 @@ with st.sidebar:
     selected = option_menu(
         menu_title="Menu",
         options=["Home","Informações", "Previsão"],
-        icons=["house-fill","info-circle-fill", "code-square"],
-        menu_icon=None,
+        icons=["file-text","info-circle-fill", "code-square"],
+        menu_icon="list",
         default_index=0
     )
 

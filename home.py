@@ -30,11 +30,18 @@ def run():
         .university {
             font-size: 35px;
             font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .curso{
+            font-size: 25px;
+            font-weight: bold;
         }
         </style>
         <div class="title-page">
             <div class="university">Universidade Federal do Maranhão</div>
+            <div class="curso">Curso de Ciência e Tecnologia</div>
             <div class="subtitle">Trabalho de Conclusão de Curso</div>
+            <div class="authors">Orientadora: Profa. Dra. Alana de A. Oliveira M. Teixeira</div>
             <div class="authors">Francisco Elias da Silva Fernandes</div>
             <div class="authors">Rosivânia da Silva Viana</div>  
         </div>
@@ -59,24 +66,21 @@ def run():
     # Texto justificado e centralizado
     st.markdown("""
     <div style="text-align: justify; text-justify: inter-word; margin-left: auto; margin-right: auto; width: 80%;">
-        O estudo busca investigar o impacto do acesso a recursos e atividades em Ambientes
+        Este estudo investiga o impacto do acesso a recursos e atividades em Ambientes
         Virtuais de Aprendizagem (AVA) no sucesso acadêmico em Educação a Distância
-        (EaD). Apesar da flexibilidade oferecida pela EaD, ela enfrenta desafios significativos
-        relacionados ao engajamento e à eficácia do ensino. Para enfrentar esses desafios, a
-        pesquisa analisou dados de um AVA, incluindo acessos, participação em atividades e
-        interações dos alunos, utilizando técnicas de Mineração de Dados Educacionais (MDE)
-        para identificar padrões e prever o desempenho acadêmico.<br><br>
-        A pesquisa visa desenvolver um modelo preditivo que possa auxiliar educadores
-        e gestores na implementação de intervenções pedagógicas mais eficazes,
-        potencialmente melhorando os resultados acadêmicos. Além de oferecer uma
-        solução prática, o estudo busca contribuir para a melhoria da qualidade do ensino em
-        EaD, ao criar ferramentas preditivas intuitivas que possam ser utilizadas facilmente
-        por educadores, mesmo aqueles com pouca familiaridade técnica.<br><br>
-        Os resultados da pesquisa revelam uma forte correlação entre o nível de interação
-        dos alunos e seu sucesso acadêmico. O estudo culmina na criação de um modelo
-        preditivo integrado a uma aplicação web, que funciona como uma ferramenta prática
-        para monitorar o engajamento dos alunos e prever seu desempenho. Dessa forma,
-        a pesquisa oferece soluções baseadas em dados que promovem uma gestão
-        pedagógica mais eficiente e a melhoria da qualidade educacional em EaD.
+        (EaD), um modelo que, embora flexível, enfrenta desafios relacionados ao
+        engajamento e à eficácia do ensino. Com o objetivo de melhorar a qualidade da EaD, a
+        pesquisa utilizou técnicas de Mineração de Dados Educacionais (MDE) para analisar
+        padrões de acesso, participação em atividades e interações dos alunos, buscando
+        prever o desempenho acadêmico.<br><br>
+        Através dessa análise, foi desenvolvido um modelo preditivo que auxilia educadores
+        e gestores na implementação de intervenções pedagógicas mais eficazes. Além de
+        fornecer uma ferramenta prática, o estudo visa facilitar o uso de recursos preditivos
+        intuitivos, acessíveis mesmo a educadores com pouca familiaridade técnica.<br><br>
+        Os resultados mostram uma forte correlação entre o nível de interação dos alunos e
+        seu sucesso acadêmico, culminando na criação de uma aplicação web que monitora o
+        engajamento e prevê o desempenho. A pesquisa, assim, oferece soluções baseadas
+        em dados para promover uma gestão pedagógica mais eficiente e elevar a qualidade
+        da EaD.<br><br>
     </div>
     """, unsafe_allow_html=True)
