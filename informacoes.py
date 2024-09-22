@@ -64,10 +64,9 @@ def run():
         Algumas colunas foram renomeadas e codificadas com indicadores binários para facilitar a análise posterior. E as colunas
         com características avaliativas (notas e atividades avaliativas), foram removidas do DataFrame.
         <br><br>
-        Para mais, também foi feita a normalização dos dados utilizados nos na criação de modelos preditivos. O processo de
-        normalização por min-max coloca os dados no intervalo entre -1 e 1, sem distorcer as diferenças nas faixas de valores,
-        ou seja, não existe a perda de valores extremos. A normalização utilizada neste projeto  foi uma variação da min-max,
-        que ao invés dos valores variarem de entre -1 e 1, eles variam de -100 à 100.
+        Para mais, também foi feita a normalização dos dados utilizados nos na criação de modelos preditivos.
+        A normalização utilizada neste projeto  foi uma variação da min-max,
+        que ao invés dos valores variarem de entre -1 e 1, eles variam de 0 à 100.
         <br><br>
     </div>
     """, unsafe_allow_html=True)

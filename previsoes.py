@@ -1,12 +1,30 @@
 import streamlit as st
 import joblib
 import numpy as np
-
+import pandas as pd
 
 def run():
+    
+    # Valores máximos originais para normalização
+    max_values = {
+        'Num_acoes_Q1': 101,
+        'Num_acoes_Q2': 51,
+        'Avaliacao_de_Forum_1': 3,
+        'Avaliacao_de_Forum_2': 3
+    }
+    
+    # Função de normalização
+    def normalizar(valor, coluna):
+        if valor > max_values[coluna]:
+            valor = max_values[coluna]  # Limita o valor ao máximo permitido
+        return (valor / max_values[coluna]) * 100
+    
     # Função para fazer previsões
     def fazer_previsao(model):
-        pred = model.predict(input_data)
+        
+        input_df = pd.DataFrame(input_data, columns=['Teve_acao_Q1', 'Num_acoes_Q1', 'Teve_acao_Q2', 
+                                                     'Num_acoes_Q2', 'Avaliacao_de_Forum_1', 'Avaliacao_de_Forum_2'])
+        pred = model.predict(input_df)
         return pred[0]
 
     # Carregar os modelos salvos
@@ -16,7 +34,6 @@ def run():
     neural_network_model = joblib.load(open('models/Rede_Neural_k10_testsize10.pkl', 'rb'))
 
     # Título da página
-    #st.title('Previsão de Desempenho do Aluno')
     st.markdown(
         """
         <style>
@@ -31,34 +48,27 @@ def run():
         unsafe_allow_html=True
     )
 
-
     # Divide a página em colunas
     col1, col2 = st.columns([2, 3])
 
     # Coluna para seleção de atributos
     with col1:
         st.header('Atributos do Aluno')
+        
+        num_acoes_q1 = st.slider('Número de Ações no Questionário 1', 0, 110, 0)
+        teve_acao_q1 = 1 if num_acoes_q1 != 0 else 0
+        num_acoes_q2 = st.slider('Número de Ações no Questionário 2', 0, 110, 0)
+        teve_acao_q2 = 1 if num_acoes_q2 != 0 else 0
+        avaliacao_forum_1 = st.slider('Participação no Fórum 1', 0, 110, 0)
+        avaliacao_forum_2 = st.slider('Participação no Fórum 2', 0, 110, 0)
 
-        teve_acao_q1 = st.selectbox('Teve Ação no Questionário 1?', ['Sim', 'Não'])
-        num_acoes_q1 = st.slider('Número de Ações no Questionário 1', 0, 100, 0)
-        teve_acao_q2 = st.selectbox('Teve Ação no Questionário 2?', ['Sim', 'Não'])
-        num_acoes_q2 = st.slider('Número de Ações no Questionário 2', 0, 100, 0)
-        avaliacao_forum_1 = st.slider('Participação no Fórum 1', 0, 100, 0)
-        avaliacao_forum_2 = st.slider('Participação no Fórum 2', 0, 100, 0)
-
-        if teve_acao_q1 == 'Sim':
-            teve_acao_q1 = 1
-        else:
-            teve_acao_q1 = 0
-
-        if teve_acao_q2 == 'Sim':
-            teve_acao_q2 = 1
-        else:
-            teve_acao_q2 = 0
-
-        # Entradas do user
-        input_data = np.array([[teve_acao_q1, num_acoes_q1, teve_acao_q2,
-                                num_acoes_q2, avaliacao_forum_1, avaliacao_forum_2]])
+        # Entradas do usuário
+        input_data = np.array([[teve_acao_q1, 
+                                normalizar(num_acoes_q1, 'Num_acoes_Q1'), 
+                                teve_acao_q2, 
+                                normalizar(num_acoes_q2, 'Num_acoes_Q2'), 
+                                normalizar(avaliacao_forum_1, 'Avaliacao_de_Forum_1'), 
+                                normalizar(avaliacao_forum_2, 'Avaliacao_de_Forum_2')]])
 
     # Coluna para previsão e resultados
     with col2:
@@ -66,35 +76,25 @@ def run():
 
         # Cria abas para cada modelo
         tab1, tab2, tab3, tab4 = st.tabs(["SVM", "Árvore de Decisão",
-                                        "Naive Bayes", "Rede Neural"])
+                                          "Naive Bayes", "Rede Neural"])
 
         with tab1:
             if st.button('Prever com SVM'):
                 resultado = fazer_previsao(svm_model)
-                if resultado == 1:
-                    st.image('src/Resultado_Aprovado.png')
-                else:
-                    st.image('src/Resultado_Reprovado.png')
+                st.image('src/Resultado_Aprovado.png' if resultado == 1 else 'src/Resultado_Reprovado.png')
+
         with tab2:
             if st.button('Prever com Árvore de Decisão'):
                 resultado = fazer_previsao(decision_tree_model)
-                if resultado == 1:
-                    st.image('src/Resultado_Aprovado.png')
-                else:
-                    st.image('src/Resultado_Reprovado.png')
+                st.image('src/Resultado_Aprovado.png' if resultado == 1 else 'src/Resultado_Reprovado.png')
 
         with tab3:
             if st.button('Prever com Naive Bayes'):
                 resultado = fazer_previsao(naive_bayes_model)
-                if resultado == 1:
-                    st.image('src/Resultado_Aprovado.png')
-                else:
-                    st.image('src/Resultado_Reprovado.png')
+                st.image('src/Resultado_Aprovado.png' if resultado == 1 else 'src/Resultado_Reprovado.png')
 
         with tab4:
             if st.button('Prever com Rede Neural'):
                 resultado = fazer_previsao(neural_network_model)
-                if resultado == 1:
-                    st.image('src/Resultado_Aprovado.png')
-                else:
-                    st.image('src/Resultado_Reprovado.png')
+                st.image('src/Resultado_Aprovado.png' if resultado == 1 else 'src/Resultado_Reprovado.png')
+
